@@ -1,0 +1,32 @@
+age:
+    elif x=='18以下':
+        return 1
+    elif x=='18-24':
+        return 2
+    elif x=='25-34':
+        return 3
+    elif x=='35-44':
+        return 4
+    elif x=='45-54':
+        return 5
+    elif x=='55-64':
+        return 6
+    if x>64
+        return 7
+		
+gender:
+1 male
+2 female
+3 unknown
+
+
+education
+
+    elif x=='高中及以下':
+        return 0
+    elif x=='大专':
+        return 1
+    elif x == 本科
+        return 2
+	elif x == 研究生及以上
+        return 3

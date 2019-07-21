@@ -1,0 +1,244 @@
+{
+  "data": [
+    {
+      "video_partition": 0.0,
+      "play_time": 84123.0,
+      "payment": 135463,
+      "age": 3.1355332940483205
+    },
+    {
+      "video_partition": 1.0,
+      "play_time": 96610.0,
+      "payment": 134774,
+      "age": 3.1232142857142855
+    },
+    {
+      "video_partition": 2.0,
+      "play_time": 84993.0,
+      "payment": 126742,
+      "age": 3.151282051282051
+    },
+    {
+      "video_partition": 3.0,
+      "play_time": 97961.0,
+      "payment": 131292,
+      "age": 3.156383628588882
+    },
+    {
+      "video_partition": 4.0,
+      "play_time": 88700.0,
+      "payment": 129762,
+      "age": 3.1825980392156863
+    },
+    {
+      "video_partition": 5.0,
+      "play_time": 92030.0,
+      "payment": 134813,
+      "age": 3.1471453796350795
+    },
+    {
+      "video_partition": 6.0,
+      "play_time": 109952.0,
+      "payment": 133796,
+      "age": 3.121230041395624
+    },
+    {
+      "video_partition": 7.0,
+      "play_time": 94314.0,
+      "payment": 135784,
+      "age": 3.1480206540447506
+    },
+    {
+      "video_partition": 8.0,
+      "play_time": 91982.0,
+      "payment": 135434,
+      "age": 3.1235614778921867
+    },
+    {
+      "video_partition": 9.0,
+      "play_time": 93353.0,
+      "payment": 128980,
+      "age": 3.175577156743621
+    },
+    {
+      "video_partition": 10.0,
+      "play_time": 94389.0,
+      "payment": 128261,
+      "age": 3.1513480392156863
+    },
+    {
+      "video_partition": 11.0,
+      "play_time": 82392.0,
+      "payment": 129148,
+      "age": 3.134411947728687
+    },
+    {
+      "video_partition": 12.0,
+      "play_time": 92408.0,
+      "payment": 135882,
+      "age": 3.125508425334108
+    },
+    {
+      "video_partition": 13.0,
+      "play_time": 100009.0,
+      "payment": 130426,
+      "age": 3.1608986035215545
+    },
+    {
+      "video_partition": 14.0,
+      "play_time": 102758.0,
+      "payment": 135956,
+      "age": 3.1392857142857142
+    },
+    {
+      "video_partition": 15.0,
+      "play_time": 96889.0,
+      "payment": 139152,
+      "age": 3.140127388535032
+    },
+    {
+      "video_partition": 16.0,
+      "play_time": 94063.0,
+      "payment": 130017,
+      "age": 3.157799274486094
+    },
+    {
+      "video_partition": 17.0,
+      "play_time": 89764.0,
+      "payment": 137592,
+      "age": 3.15929203539823
+    },
+    {
+      "video_partition": 18.0,
+      "play_time": 96612.0,
+      "payment": 141079,
+      "age": 3.120313374370453
+    },
+    {
+      "video_partition": 19.0,
+      "play_time": 82719.0,
+      "payment": 131724,
+      "age": 3.1141104294478525
+    },
+    {
+      "video_partition": 20.0,
+      "play_time": 89010.0,
+      "payment": 133247,
+      "age": 3.1391044776119403
+    },
+    {
+      "video_partition": 21.0,
+      "play_time": 93230.0,
+      "payment": 129833,
+      "age": 3.128509045539613
+    },
+    {
+      "video_partition": 22.0,
+      "play_time": 86978.0,
+      "payment": 129076,
+      "age": 3.126126126126126
+    },
+    {
+      "video_partition": 23.0,
+      "play_time": 93497.0,
+      "payment": 130451,
+      "age": 3.1381074168797953
+    },
+    {
+      "video_partition": 24.0,
+      "play_time": 85074.0,
+      "payment": 134484,
+      "age": 3.153263403263403
+    },
+    {
+      "video_partition": 25.0,
+      "play_time": 93430.0,
+      "payment": 132428,
+      "age": 3.092250922509225
+    },
+    {
+      "video_partition": 26.0,
+      "play_time": 93625.0,
+      "payment": 132856,
+      "age": 3.1107729762629335
+    },
+    {
+      "video_partition": 27.0,
+      "play_time": 95068.0,
+      "payment": 135345,
+      "age": 3.1605011933174225
+    },
+    {
+      "video_partition": 28.0,
+      "play_time": 84748.0,
+      "payment": 130759,
+      "age": 3.1415823914336705
+    },
+    {
+      "video_partition": 29.0,
+      "play_time": 89949.0,
+      "payment": 132807,
+      "age": 3.1749561146869514
+    },
+    {
+      "video_partition": 30.0,
+      "play_time": 82245.0,
+      "payment": 133640,
+      "age": 3.129223473621814
+    },
+    {
+      "video_partition": 31.0,
+      "play_time": 89280.0,
+      "payment": 134504,
+      "age": 3.1228689006466785
+    },
+    {
+      "video_partition": 32.0,
+      "play_time": 82890.0,
+      "payment": 127718,
+      "age": 3.1163502755664423
+    },
+    {
+      "video_partition": 33.0,
+      "play_time": 85074.0,
+      "payment": 128227,
+      "age": 3.1252336448598133
+    },
+    {
+      "video_partition": 34.0,
+      "play_time": 91330.0,
+      "payment": 133933,
+      "age": 3.1003694581280787
+    },
+    {
+      "video_partition": 35.0,
+      "play_time": 90937.0,
+      "payment": 132504,
+      "age": 3.1116625310173696
+    },
+    {
+      "video_partition": 36.0,
+      "play_time": 92808.0,
+      "payment": 133994,
+      "age": 3.0992990654205608
+    },
+    {
+      "video_partition": 37.0,
+      "play_time": 89315.0,
+      "payment": 133785,
+      "age": 3.1282660332541568
+    },
+    {
+      "video_partition": 38.0,
+      "play_time": 99319.0,
+      "payment": 133092,
+      "age": 3.1559045956951715
+    },
+    {
+      "video_partition": 39.0,
+      "play_time": 100437.0,
+      "payment": 135126,
+      "age": 3.1221142162818953
+    }
+  ]
+}

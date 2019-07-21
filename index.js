@@ -241,6 +241,7 @@ function mapChart() {
         // backgroundColor: '#000',
         title: {
             text: '用户常驻城市',
+            top: 10,
             left: 'center',
             textStyle: {
                 color: '#fff'
@@ -285,28 +286,30 @@ function mapChart() {
             data: new Float32Array()
         }]
     };
-    $.get('./geter.json', function (res) {
+    $.get('./data/geter/geter.json', function (res) {
         let geterObj = res;
-        // option.dataset.source = geterObj.geter;
-        let genderLabelObj = {
-            1: 'male',
-            2: 'female',
-            3: 'notKnown'
-        };
         let data = [];
-        geterObj.geter.forEach(function (v, i) {
+        geterObj.data.forEach(function (v, i) {
             data.push(v['o'].split(';').concat(1))
 
         });
-        console.log(data);
-        // myChart.setOption(option);
         option.series[0].data = data;
         myChart.setOption(option)
     });
+    let myChart2 = echarts.init($('.chart10')[0]);
+    $.get('./data/producer/producer.json', function (res) {
+        let geterObj = res;
+        let data = [];
+        geterObj.data.forEach(function (v, i) {
+            data.push(v['o'].split(';').concat(1))
 
-    // console.log(JSON.stringify(genderObj));
-
+        });
+        let newOption = JSON.parse(JSON.stringify(option));
+        newOption.series[0].data = data;
+        myChart2.setOption(newOption)
+    });
 }
+
 
 function chartL1() {
     let geterObj, producerObj;
@@ -315,13 +318,18 @@ function chartL1() {
     let char3 = echarts.init($('.chart3')[0]);
     let char4 = echarts.init($('.chart4')[0]);
 
+    let char6 = echarts.init($('.chart6')[0]);
+    let char7 = echarts.init($('.chart7')[0]);
+    let char8 = echarts.init($('.chart8')[0]);
+    let char9 = echarts.init($('.chart9')[0]);
+
     let optionBar1 = {
         title: {
             text: '注册时长 ',
             x: 'center',
             y: 10,
             textStyle: {
-                color: '#B4B4B4',
+                color: '#fff',
                 fontSize: 16,
                 fontWeight: 'normal',
             },
@@ -386,15 +394,16 @@ function chartL1() {
         title: {
             text: '用户学历 ',
             x: 'center',
-            y: 0,
+            y: 10,
             textStyle: {
-                color: '#B4B4B4',
+                color: '#fff',
                 fontSize: 16,
                 fontWeight: 'normal',
             },
 
         },
-        color: ['#213B7A', '#54FEFE', '#0097EE', '#3D4969', '#35CEBA'],
+        // color: ['#213B7A', '#54FEFE', '#0097EE', '#3D4969', '#35CEBA'],
+        color: [ '#ad46f3', '#5045f6', '#4777f5', "#44aff0", "#45dbf7", "#f6d54a", "#f69846", "#ff4343",'#f845f1',],
 
         tooltip: {
             trigger: 'item',
@@ -442,13 +451,23 @@ function chartL1() {
                     shadowBlur: 10,
                     shadowOffsetX: 0,
                     shadowColor: 'rgba(0, 0, 0, 0.5)'
+                },
+                normal: {
+                    shadowColor: 'rgba(0, 0, 0, 0.8)',
+                    shadowBlur: 50,
                 }
-            }
+            },
+
         }]
     };
 
-    $.get('./data.json', function (res) {
-        geterObj = res.geter;
+    $.get('./data/data.json', function (res) {
+        initChart(res.geter, char1, char2, char3, char4);
+        initChart(res.producer, char6, char7, char8, char9)
+    });
+
+    function initChart(data, char1, char2, char3, char4) {
+        geterObj = data;
         // option.xAxis.data = Object.keys(geterObj["register_time"]);
         optionBar1.series[0].data = Object.keys(geterObj["register_time_div100"]).map(function (key) {
             return [key, geterObj["register_time_div100"][key]];
@@ -473,15 +492,115 @@ function chartL1() {
             return {"name": key, value: geterObj["age"][key]};
         });
         char4.setOption(optionPie1);
-    });
+    }
+}
 
-    $.get('./producer.json', function (res) {
-        producerObj = res;
-        myChart.setOption(option);
+function scatterChart() {
+    let scatterChar = echarts.init($('.scatterChart')[0]);
+    let data = [];
+
+    $.ajax({
+        url: './data/geter/parition.json',
+        success: function (res) {
+            res.data.forEach(function (v) {
+                data.push([v["payment"], v["age"], v["play_time"], v["video_partition"]])
+            });
+            let option = {
+                /*backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [{
+                    offset: 0,
+                    color: '#6298fa'
+                }, {
+                    offset: 1,
+                    color: '#cdd0d5'
+                }]),*/
+                title: {
+                    text: ''
+                },
+
+                xAxis: {
+                    name: "用户花费",
+                    splitLine: {
+                        lineStyle: {
+                            type: 'dashed'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#aeaeae'
+                        }
+                    },
+                    scale: true
+                },
+                yAxis: {
+                    name: "用户平均年龄",
+                    splitLine: {
+                        lineStyle: {
+                            type: 'dashed'
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#aeaeae'
+                        }
+                    },
+                    scale: true
+                },
+                series: [{
+                    name: 'ss',
+                    data: data,
+                    type: 'scatter',
+                    symbolSize: function (data) {
+                        return (data[2] - 80000) / 400;
+                    },
+                    label: {
+                        emphasis: {
+                            show: true,
+                            formatter: function (param) {
+                                return "分区" + param.data[3]
+                                    + "\n热度：" + param.data[2]
+                                    + "\n用户平均年龄：" + param.data[1].toFixed(3)
+                                    + "\n用户花费：" + param.data[0]
+                            },
+                            position: 'top',
+                            color: "#fff",
+                            align: "left"
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            shadowBlur: 10,
+                            shadowColor: 'rgba(25, 100, 150, 0.5)',
+                            shadowOffsetY: 5,
+                            color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
+                                offset: 0,
+                                color: 'rgb(129, 227, 238)'
+                            }, {
+                                offset: 1,
+                                color: 'rgb(25, 183, 207)'
+                            }])
+                        }
+                    }
+                }
+                ]
+            };
+            console.log(option);
+            scatterChar.setOption(option);
+        },
+        error: function (err) {
+            console.log(err);
+        }
     });
+    /* var data = [
+         [
+             [28604, 77, 17096869, 'Australia', 1990], [31163, 77.4, 27662440, 'Canada', 1990], [1516, 68, 1154605773, 'China', 1990], [13670, 74.7, 10582082, 'Cuba', 1990], [28599, 75, 4986705, 'Finland', 1990], [29476, 77.1, 56943299, 'France', 1990], [31476, 75.4, 78958237, 'Germany', 1990], [28666, 78.1, 254830, 'Iceland', 1990], [1777, 57.7, 870601776, 'India', 1990], [29550, 79.1, 122249285, 'Japan', 1990], [2076, 67.9, 20194354, 'North Korea', 1990], [12087, 72, 42972254, 'South Korea', 1990], [24021, 75.4, 3397534, 'New Zealand', 1990], [43296, 76.8, 4240375, 'Norway', 1990], [10088, 70.8, 38195258, 'Poland', 1990], [19349, 69.6, 147568552, 'Russia', 1990], [10670, 67.3, 53994605, 'Turkey', 1990], [26424, 75.7, 57110117, 'United Kingdom', 1990], [37062, 75.4, 252847810, 'United States', 1990]],
+         [
+             [44056, 81.8, 23968973, 'Australia', 2015], [43294, 81.7, 35939927, 'Canada', 2015], [13334, 76.9, 1376048943, 'China', 2015], [21291, 78.5, 11389562, 'Cuba', 2015], [38923, 80.8, 5503457, 'Finland', 2015], [37599, 81.9, 64395345, 'France', 2015], [44053, 81.1, 80688545, 'Germany', 2015], [42182, 82.8, 329425, 'Iceland', 2015], [5903, 66.8, 1311050527, 'India', 2015], [36162, 83.5, 126573481, 'Japan', 2015], [1390, 71.4, 25155317, 'North Korea', 2015], [34644, 80.7, 50293439, 'South Korea', 2015], [34186, 80.6, 4528526, 'New Zealand', 2015], [64304, 81.6, 5210967, 'Norway', 2015], [24787, 77.3, 38611794, 'Poland', 2015], [23038, 73.13, 143456918, 'Russia', 2015], [19360, 76.5, 78665830, 'Turkey', 2015], [38225, 81.4, 64715810, 'United Kingdom', 2015], [53354, 79.1, 321773631, 'United States', 2015]]
+     ];
+ */
 
 
 }
+
 
 function getNumOfType(arr, type, labelObj) {
     let res = {};
@@ -497,7 +616,7 @@ function getNumOfType(arr, type, labelObj) {
     if (labelObj) {
         for (let i in res) {
             if (labelObj.hasOwnProperty(i)) {
-                res[labelObj[i]] = res[i]
+                res[labelObj[i]] = res[i];
                 delete res[i]
             }
         }
@@ -506,7 +625,49 @@ function getNumOfType(arr, type, labelObj) {
     return res;
 }
 
+
+function loadData() {
+    let geterData = {};
+    let eduObj = {
+        0: "高中及以下",
+        1: "大专",
+        2: "本科",
+        3: "研究生及以上"
+    };
+    let ageObj = {
+        1: "18以下",
+        2: "18-24",
+        3: "25-34",
+        4: "35-44",
+        5: "45-54",
+        6: "55-64",
+        7: "64以上"
+    };
+    let genderLabelObj = {
+        1: 'male',
+        2: 'female',
+        3: 'unknown'
+    };
+    $.ajax({
+        url: "./data/producer/producer.json",
+        async: false,
+        success: function (res) {
+            geterData.data = res;
+            geterData.edu = getNumOfType(res.data, "edu", eduObj);
+            geterData.age = getNumOfType(res.data, "age", ageObj);
+            geterData.gender = getNumOfType(res.data, "gender", genderLabelObj);
+            geterData.play = getNumOfType(res.data, "play_time");
+            console.log(JSON.stringify(geterData.play));
+        }
+    });
+    return geterData;
+}
+
+// loadData();
+
 $(function () {
+    // let geterData = loadData();
     mapChart();
     chartL1();
+    scatterChart();
 });
