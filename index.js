@@ -610,6 +610,112 @@ function scatterChart() {
 
 }
 
+function radarChart() {
+    let radarChart = echarts.init($('.radarChart')[0]);
+    $.get('./data/data.json', function (res) {
+        let avgArr = [], numArr = [], nameArr = [];
+        res.geter.radar.forEach(function (v) {
+            avgArr.push(v.avg);
+            numArr.push(v.num);
+            nameArr.push({text: v.name})
+        });
+        let option = {
+            title: {
+                text: '用户群体特征信息',
+                left: 'center',
+                top: '15',
+                textStyle: {
+                    color: '#fff'//统计图标题的文字颜色
+                }
+            },
+            color: ['#ad46f3', '#5045f6'],
+            tooltip: {},
+            legend: {
+                data: ['观看视频时长', '观看视频人数'],
+                show: true, //是否显示图例
+                icon: 'circle',//图例形状，示例为原型
+                bottom: 15,//图例离底部的距离
+                itemWidth: 14, // 图例标记的图形宽度。
+                itemHeight: 14, // 图例标记的图形高度。
+                itemGap: 20, // 图例每项之间的间隔。
+                textStyle: {//图例文字的样式设置
+                    fontSize: 14,
+                    color: '#ade3ff'
+                },
+            },
+
+            radar: {
+                // shape: 'circle',
+                name: {
+                    textStyle: {
+                        color: '#fff',
+                        // backgroundColor: '#999',
+                        borderRadius: 3,
+                        padding: [3, 5]
+                    }
+                },
+                indicator: nameArr,
+                splitArea: {
+                    show: true,
+                    areaStyle: {
+                        color: 'rgba(0, 0, 0, 0)'
+                    }
+                },
+                axisLine: { //蛛网轴线上的颜色，由内向外发散的那条
+                    lineStyle: {
+                        color: '#153269'
+                    }
+                },
+                splitLine: {//蛛网环形的线条颜色
+                    lineStyle: {
+                        color: '#113865', // 分隔线颜色
+                        width: 1, // 分隔线线宽
+                    }
+                },
+            },
+            series: [
+                {
+                    name: '用户群体特征信息',
+                    type: 'radar',
+                    // areaStyle: {normal: {}},
+                    data: [
+                        {
+                            value: numArr,
+                            name: '观看视频人数'
+                        }
+                    ],
+                    areaStyle: {
+                        normal: {
+                            color: 'rgba(173, 70, 243, 0.64)'
+                            //rgba(80, 69, 246, 0.67)
+                        }
+                    }
+
+                },
+                {
+                    name: '用户群体特征信息',
+                    type: 'radar',
+                    // areaStyle: {normal: {}},
+                    data: [
+                        {
+                            value: avgArr,
+                            name: '观看视频时长'
+                        }
+                    ],
+                    areaStyle: {
+                        normal: {
+                            color: 'rgba(80, 69, 246, 0.8)'
+                        }
+                    }
+
+                }]
+
+        };
+        console.log(option);
+        radarChart.setOption(option)
+    })
+
+}
 
 function getNumOfType(arr, type, labelObj) {
     let res = {};
@@ -673,11 +779,12 @@ function loadData() {
 }
 
 // loadData();
-$.ajax({
+/*$.ajax({
     url: "./data/geter/geter.json",
     async: false,
-    success: function (res) {
-        res.data.forEach(function (v, i) {
+    success: function (response) {
+        let res = [];
+        response.data.forEach(function (v, i) {
             // let label = v[type] % 100;
             let label = v['love_type'];
             if (res[label]) {
@@ -685,16 +792,20 @@ $.ajax({
                 res[label].playTime += v["play_time"];
 
             } else {
-                res[label] = {num: 1, playTime: v["play_time"]}
+                res[label] = {num: 1, playTime: v["play_time"], name: v["love_type"]}
             }
         });
 
-        console.log(res);
+        res.forEach(function (v, i) {
+            v["avg"] = v["playTime"] / v["num"]
+        });
+        console.log(JSON.stringify(res));
     }
-});
+});*/
 $(function () {
     // let geterData = loadData();
     mapChart();
     chartL1();
     scatterChart();
+    radarChart();
 });
