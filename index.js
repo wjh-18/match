@@ -322,6 +322,7 @@ function chartL1() {
     let char7 = echarts.init($('.chart7')[0]);
     let char8 = echarts.init($('.chart8')[0]);
     let char9 = echarts.init($('.chart9')[0]);
+    let char11 = echarts.init($('.chart11')[0]);
 
     let optionBar1 = {
         title: {
@@ -403,7 +404,7 @@ function chartL1() {
 
         },
         // color: ['#213B7A', '#54FEFE', '#0097EE', '#3D4969', '#35CEBA'],
-        color: [ '#ad46f3', '#5045f6', '#4777f5', "#44aff0", "#45dbf7", "#f6d54a", "#f69846", "#ff4343",'#f845f1',],
+        color: ['#ad46f3', '#5045f6', '#4777f5', "#44aff0", "#45dbf7", "#f6d54a", "#f69846", "#ff4343", '#f845f1',],
 
         tooltip: {
             trigger: 'item',
@@ -463,7 +464,15 @@ function chartL1() {
 
     $.get('./data/data.json', function (res) {
         initChart(res.geter, char1, char2, char3, char4);
-        initChart(res.producer, char6, char7, char8, char9)
+        initChart(res.producer, char6, char7, char8, char9);
+
+
+        optionPie1.title.text = "生产视频类型";
+        optionPie1.series[0].roseType = 'radius';
+        optionPie1.series[0].data = Object.keys(geterObj["type"]).map(function (key) {
+            return {"name": key, value: geterObj["type"][key]};
+        });
+        char11.setOption(optionPie1);
     });
 
     function initChart(data, char1, char2, char3, char4) {
@@ -664,7 +673,25 @@ function loadData() {
 }
 
 // loadData();
+$.ajax({
+    url: "./data/geter/geter.json",
+    async: false,
+    success: function (res) {
+        res.data.forEach(function (v, i) {
+            // let label = v[type] % 100;
+            let label = v['love_type'];
+            if (res[label]) {
+                res[label].num++;
+                res[label].playTime += v["play_time"];
 
+            } else {
+                res[label] = {num: 1, playTime: v["play_time"]}
+            }
+        });
+
+        console.log(res);
+    }
+});
 $(function () {
     // let geterData = loadData();
     mapChart();
